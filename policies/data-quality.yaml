@@ -1,0 +1,21 @@
+version: 1
+required_metadata: [source, retrieved_at, data_timestamp, market, instrument_id]
+quality_checks:
+  instrument_identity: required
+  timestamp_and_timezone: required
+  market_calendar: required
+  currency_and_unit: required
+  adjustment_method_for_price_series: required
+  report_period_and_publication_date_for_fundamentals: required
+  missing_values: flag
+  duplicates: reject_or_resolve
+  outliers: flag_and_review
+  source_conflicts: disclose
+freshness:
+  realtime_claim_requires_provider_confirmation: true
+  delayed_data_must_be_labeled: true
+  historical_data_must_include_period: true
+failure_policy:
+  block_calculation_when_identity_invalid: true
+  block_return_comparison_when_adjustment_mismatched: true
+  never_impute_unknown_as_zero: true

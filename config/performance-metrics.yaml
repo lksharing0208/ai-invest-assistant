@@ -1,0 +1,20 @@
+version: 1
+profiles: {}
+default_profile: null
+metrics:
+  total_return: {enabled: true, method: null}
+  time_weighted_return: {enabled: false, method: null}
+  money_weighted_return: {enabled: false, method: null}
+  win_rate: {enabled: true, sample_definition: null}
+  profit_loss_ratio: {enabled: true, method: average_win_over_absolute_average_loss}
+  profit_factor: {enabled: true}
+  max_drawdown: {enabled: true}
+  expectancy: {enabled: true}
+  volatility: {enabled: false}
+  risk_adjusted_return: {enabled: false}
+governance:
+  require_sample_count: true
+  require_period_and_currency: true
+  require_external_cashflow_treatment: true
+  require_fee_and_dividend_treatment: true
+  insufficient_sample_action: label_unstable

@@ -1,0 +1,7 @@
+interface:
+  display_name: "AI 金融助手"
+  short_description: "金融研究、选股与风险分析"
+  default_prompt: "作为唯一金融主控 Agent 识别用户意图，按需加载金融 Skills；必须核验数据来源、时间、市场和口径，区分事实与判断，提示风险，不执行未经授权的真实交易。"
+
+policy:
+  allow_implicit_invocation: true

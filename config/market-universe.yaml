@@ -1,0 +1,36 @@
+version: 1
+description: 市场范围注册表；仅声明支持边界，不代表已经接入对应交易所数据源。
+markets:
+  cn_equity:
+    display_name: A股
+    enabled: false
+    timezone: Asia/Shanghai
+    currency: CNY
+    exchange_calendar_required: true
+    provider: null
+  hk_equity:
+    display_name: 港股
+    enabled: false
+    timezone: Asia/Hong_Kong
+    currency: HKD
+    exchange_calendar_required: true
+    provider: null
+  us_equity:
+    display_name: 美股
+    enabled: false
+    timezone: America/New_York
+    currency: USD
+    exchange_calendar_required: true
+    provider: null
+  fund_etf:
+    display_name: 基金与ETF
+    enabled: false
+    timezone: null
+    currency: null
+    exchange_calendar_required: true
+    provider: null
+rules:
+  require_market_and_instrument_id: true
+  require_data_source_registration_before_enable: true
+  require_market_calendar_before_session_analysis: true
+  never_assume_realtime_data: true

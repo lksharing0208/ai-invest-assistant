@@ -1,0 +1,27 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "ai-invest-assistant",
+  "version": "1.0.0",
+  "description": "统一主控 Agent 与 16 个金融 Skills，支持多市场投资研究、指标选股、组合风险和绩效分析。",
+  "author": {"name": "AI 投资助手项目"},
+  "homepage": "https://github.com/lksharing0208/ai-invest-assistant",
+  "repository": "https://github.com/lksharing0208/ai-invest-assistant",
+  "keywords": ["investment-research", "financial-analysis", "stock-screening", "portfolio-risk", "agent-skills", "low-token"],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "AI 金融助手",
+        "shortDescription": "金融研究、选股与风险分析",
+        "longDescription": "一个统一金融主控 Agent，按需编排宏观、市场、行业、个股、选股、策略、基金、组合、风险、交易计划和绩效 Skills。金融数据必须注明来源和时间，个人账户数据按授权隔离。",
+        "developerName": "AI 投资助手项目",
+        "category": "Productivity",
+        "capabilities": ["Research", "Analysis", "Writing"],
+        "defaultPrompt": [
+          "作为 AI 金融助手，根据我的问题识别市场和投资研究意图，只加载必要 Skills，并说明数据来源、时间和主要风险。",
+          "请分析指定市场、股票或 ETF，区分事实、预期、判断和建议，并列出关键假设及失效条件。",
+          "请基于我授权的持仓和交易记录分析组合风险与绩效，不得访问其他用户的数据，也不要执行真实交易。"
+        ]
+      }
+    }
+  }
+}

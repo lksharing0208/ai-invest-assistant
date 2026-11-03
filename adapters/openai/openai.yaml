@@ -1,0 +1,28 @@
+format: agent-adapter/v1
+provider: openai
+agent:
+  name: ai-invest-assistant
+  instructions_source: ../../agent/instructions.md
+  manifest_source: ../../agent/manifest.yaml
+  orchestration:
+    mode: low-token
+    router_skill: intent-router
+    loading: progressive
+    standard_max_skills: 3
+    max_auxiliary_skills: 2
+runtime_mapping:
+  agent:
+    instructions: agent.instructions
+    model: runtime-selected
+    tools: runtime-registered
+    handoffs: workflow-defined
+  skills:
+    source: skills/*/SKILL.md
+    load: on-demand
+  data_tools:
+    source: runtime-tool-registry
+    provider_configuration: deployment-managed
+    permission_enforcement: runtime-policy
+notes:
+  - 本文件是统一 Agent Spec 到 OpenAI Runtime 的映射说明，不是 OpenAI Agents SDK 原生可执行配置。
+  - 当前项目未预置数据供应商、MCP endpoint 或真实交易工具。

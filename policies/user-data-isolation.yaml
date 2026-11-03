@@ -1,0 +1,17 @@
+version: 1
+data_classes:
+  public_market_data: {sharing: shared_when_license_allows}
+  personal_account_data: {sharing: owner_only}
+  holdings_and_orders: {sharing: owner_only}
+  trade_journal: {sharing: owner_only}
+  performance: {sharing: owner_only}
+authorization:
+  derive_actor_from_authenticated_context: true
+  never_trust_request_user_id_as_authority: true
+  enforce_account_ownership_on_every_read: true
+  enforce_account_ownership_on_every_write: true
+  deny_cross_user_aggregation_by_default: true
+  audit_sensitive_access: true
+aggregation:
+  cross_user_analysis_requires_explicit_opt_in_and_deidentification: true
+  preserve_data_source_and_account_scope: true

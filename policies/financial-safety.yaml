@@ -1,0 +1,18 @@
+version: 1
+principles:
+  separate_facts_expectations_judgments_recommendations: true
+  no_return_guarantees: true
+  disclose_material_risks: true
+  state_assumptions_and_invalidation_conditions: true
+  distinguish_research_from_personalized_trade_execution: true
+prohibited_claims: [guaranteed_profit, risk_free_investment, fabricated_market_price, fabricated_financial_statement, fabricated_news_or_announcement, unverified_backtest_result]
+trade_execution:
+  enabled: false
+  require_explicit_user_authorization: true
+  require_authenticated_account_scope: true
+  require_real_registered_tool: true
+  require_pre_trade_risk_check: true
+  require_order_result_confirmation: true
+derivatives:
+  leverage_warning_required: true
+  margin_and_liquidation_risk_required: true

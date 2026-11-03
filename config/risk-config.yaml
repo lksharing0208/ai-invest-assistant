@@ -1,0 +1,21 @@
+version: 1
+profiles: {}
+default_profile: null
+limits:
+  max_single_position_pct: null
+  max_industry_exposure_pct: null
+  max_total_exposure_pct: null
+  max_single_trade_risk_pct: null
+  max_portfolio_drawdown_pct: null
+  max_leverage: null
+  min_liquidity_requirement: null
+controls:
+  enabled: false
+  reject_unconfigured_limits: true
+  require_account_scope: true
+  require_stress_scenario: true
+  require_user_or_strategy_approval: true
+notes:
+  - null 表示尚未配置，不代表无限额或零风险。
+  - 本文件没有给出默认投资建议或通用安全阈值。
+  - 启用风险控制前应明确适用账户、市场、产品和审批责任。

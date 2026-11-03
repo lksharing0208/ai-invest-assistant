@@ -1,0 +1,27 @@
+version: 1
+profiles: {}
+defaults:
+  market: null
+  universe: null
+  as_of: null
+  price_adjustment: null
+  liquidity_filter: null
+  excluded_instrument_status: []
+indicators: {}
+scoring:
+  enabled: false
+  dimensions: []
+  weights: {}
+  normalization: null
+  missing_value_policy: reject_or_flag
+ranking:
+  sort_order: null
+  tie_breakers: []
+governance:
+  require_version: true
+  require_effective_from: true
+  preserve_exclusion_reasons: true
+  prevent_lookahead_bias: true
+notes:
+  - 所有阈值、周期、权重和归一化方法由策略负责人配置并验证。
+  - 缺少市场、复权或指标计算口径时不得执行正式评分。

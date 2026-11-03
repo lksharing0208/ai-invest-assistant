@@ -1,0 +1,27 @@
+version: 1
+default_mode: low-token
+levels:
+  S0: {max_skills: 0, workflow: direct}
+  S1: {max_skills: 1, workflow: single}
+  S2: {max_skills: 3, workflow: staged}
+  S3: {max_skills: progressive, workflow: staged-quality-gates}
+routes:
+  macro: {primary: macro-analysis, auxiliary: [market-data, market-analysis]}
+  market: {primary: market-analysis, auxiliary: [market-data, macro-analysis]}
+  industry: {primary: industry-analysis, auxiliary: [market-data, market-analysis]}
+  stock_research: {primary: stock-research, auxiliary: [market-data, industry-analysis]}
+  stock_screening: {primary: stock-screening, auxiliary: [market-data, industry-analysis]}
+  strategy: {primary: strategy-analysis, auxiliary: [stock-screening, risk-management]}
+  fund_etf: {primary: fund-etf-analysis, auxiliary: [market-data, risk-management]}
+  portfolio: {primary: portfolio-management, auxiliary: [market-data, risk-management]}
+  risk: {primary: risk-management, auxiliary: [portfolio-management, market-data]}
+  trading_plan: {primary: trading-plan, auxiliary: [risk-management, stock-screening]}
+  trade_journal: {primary: trade-journal, auxiliary: [portfolio-management]}
+  performance: {primary: performance-analysis, auxiliary: [trade-journal, risk-management]}
+  investment_report: {primary: investment-report, auxiliary: []}
+constraints:
+  primary_skill_count: 1
+  load_auxiliary_on_demand: true
+  no_duplicate_skill_execution: true
+  no_duplicate_data_queries: true
+  no_full_skill_preload: true

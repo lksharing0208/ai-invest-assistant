@@ -1,0 +1,28 @@
+version: 1
+strategies:
+  breakout-pullback-restart:
+    display_name: 突破—回踩—启动
+    version: 1.0.0
+    enabled: false
+    status: template_only
+    market_scope: []
+    universe_ref: config/market-universe.yaml
+    screening_ref: config/screening-config.yaml
+    risk_ref: config/risk-config.yaml
+    state_machine:
+      states: [candidate, breakout_pending, breakout_confirmed, pullback_waiting, pullback_valid, pullback_failed, restart_pending, restart_confirmed, invalidated]
+      transitions: []
+    parameters: {}
+    scoring:
+      dimensions: []
+      weights: {}
+    validation:
+      require_in_sample_and_out_of_sample: true
+      require_transaction_costs: true
+      require_slippage_model: true
+      prevent_lookahead_bias: true
+      report_survivorship_bias: true
+notes:
+  - 本文件仅建立策略配置槽位，未预设任何交易阈值或仓位参数。
+  - 启用策略前必须补齐适用市场、信号定义、参数、评分维度和回测验证。
+  - 策略版本变更必须留存变更记录和生效时间。
