@@ -1,0 +1,22 @@
+version: 1
+status: not_configured
+providers: []
+registration_schema:
+  required_fields:
+    - provider_id
+    - provider_name
+    - environment
+    - supported_markets
+    - supported_instruments
+    - supported_fields
+    - data_status
+    - timezone_behavior
+    - currency_and_units
+    - license_scope
+    - authentication_reference
+    - rate_limits
+    - timeout_and_retry_policy
+security:
+  credentials_from_environment_or_secret_manager_only: true
+  prohibit_plaintext_credentials_in_git: true
+  require_access_audit: true

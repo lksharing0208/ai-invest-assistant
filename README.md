@@ -14,13 +14,14 @@
 ai-invest-assistant/
 ├── agent/                  # 统一 Agent 源配置
 ├── adapters/               # ChatGPT / OpenAI / Claude 适配说明
-├── config/                 # 路由、市场、选股、策略、风险和绩效配置
+├── config/                 # 路由、市场、数据源、指标、策略、风险和绩效配置
 ├── policies/               # 金融安全、数据质量、用户隔离策略
 ├── skills/                 # 16 个金融 Skills
 ├── references/             # 金融指标、数据源、风险与日历规范
 ├── templates/              # 研究、选股、交易和绩效报告模板
 ├── scripts/                # 校验和插件 ZIP 构建
-├── docs/                   # 架构和实施规范
+├── tests/                  # 路由验收样例
+├── docs/                   # 架构、风险、数据和实施规范
 └── requirements-dev.txt
 ```
 
@@ -62,6 +63,8 @@ python scripts/validate_skills.py
 python scripts/validate_finance_config.py
 ```
 
+金融配置校验同时检查 YAML 语法、插件清单和路由样例结构。
+
 ## 构建 ChatGPT 插件包
 
 ```bash
@@ -77,4 +80,4 @@ python scripts/build_chatgpt_plugin.py
 - 未接入有授权的交易服务前，不提交、撤销或修改真实订单。
 - 策略模板默认 disabled；不预设交易阈值、风控比例或收益承诺。
 
-详细设计见 `docs/SKILL-DESIGN.md`、`docs/FINANCIAL-DATA-STANDARD.md`、`docs/INVESTMENT-RISK-STANDARD.md` 和 `docs/STRATEGY-ENGINEERING.md`。
+详细设计见 `docs/SKILL-DESIGN.md`、`docs/FINANCIAL-DATA-STANDARD.md`、`docs/INVESTMENT-RISK-STANDARD.md`、`docs/STRATEGY-ENGINEERING.md` 和 `docs/IMPLEMENTATION-ROADMAP.md`。

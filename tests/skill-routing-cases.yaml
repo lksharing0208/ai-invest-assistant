@@ -1,0 +1,73 @@
+version: 1
+description: 意图路由验收样例；由人工或自动评估器校验主 Skill 与辅助 Skill 选择。
+cases:
+  - id: route-001
+    input: "解释市盈率和市净率的区别"
+    level: S0
+    primary: null
+    auxiliary: []
+  - id: route-002
+    input: "分析本周美国 CPI 数据及其对美股利率敏感板块的潜在影响"
+    level: S2
+    primary: macro-analysis
+    auxiliary: [market-data, market-analysis]
+  - id: route-003
+    input: "分析沪深市场今天的成交额、涨跌家数和主要指数"
+    level: S1
+    primary: market-analysis
+    auxiliary: [market-data]
+  - id: route-004
+    input: "比较新能源行业景气度和主要板块强度"
+    level: S2
+    primary: industry-analysis
+    auxiliary: [market-data, market-analysis]
+  - id: route-005
+    input: "研究指定上市公司的现金流、盈利质量和估值"
+    level: S2
+    primary: stock-research
+    auxiliary: [market-data, industry-analysis]
+  - id: route-006
+    input: "按自定义均线、成交额和波动条件筛选候选股票"
+    level: S2
+    primary: stock-screening
+    auxiliary: [market-data]
+  - id: route-007
+    input: "设计突破回踩再启动策略并评估回测偏差"
+    level: S3
+    primary: strategy-analysis
+    auxiliary: [stock-screening, risk-management]
+  - id: route-008
+    input: "比较两只跟踪同一指数的 ETF"
+    level: S2
+    primary: fund-etf-analysis
+    auxiliary: [market-data, risk-management]
+  - id: route-009
+    input: "检查我的账户持仓集中度和行业暴露"
+    level: S2
+    primary: portfolio-management
+    auxiliary: [market-data, risk-management]
+  - id: route-010
+    input: "评估这笔交易的止损距离和最大计划损失"
+    level: S1
+    primary: risk-management
+    auxiliary: []
+  - id: route-011
+    input: "根据已有研究信号生成入场和退出计划"
+    level: S2
+    primary: trading-plan
+    auxiliary: [risk-management]
+  - id: route-012
+    input: "记录今天实际成交，并比较与原交易计划的差异"
+    level: S1
+    primary: trade-journal
+    auxiliary: []
+  - id: route-013
+    input: "统计过去半年已平仓交易胜率、盈亏比和最大回撤"
+    level: S2
+    primary: performance-analysis
+    auxiliary: [trade-journal, risk-management]
+  - id: route-014
+    input: "生成包含市场、行业、个股和风险部分的研究报告"
+    level: S3
+    primary: investment-report
+    auxiliary: [按报告范围动态选择]

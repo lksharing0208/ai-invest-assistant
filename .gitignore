@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environments
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Build outputs
+dist/
+build/
+*.zip
+*.tar.gz
+
+# Local runtime data
+.cache/
+logs/
+*.log
+
+# Editors and OS
+.DS_Store
+.idea/
+.vscode/

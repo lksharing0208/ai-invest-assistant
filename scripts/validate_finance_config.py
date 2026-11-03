@@ -10,6 +10,19 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def load_mapping(relative: str, yaml_module, errors: list[str]) -> dict:
+    path = ROOT / relative
+    try:
+        value = yaml_module.safe_load(path.read_text(encoding="utf-8"))
+        if not isinstance(value, dict):
+            errors.append(f"{relative}: YAML root must be a mapping")
+            return {}
+        return value
+    except (OSError, UnicodeError, yaml_module.YAMLError) as exc:
+        errors.append(f"{relative}: {exc}")
+        return {}
+
+
 def main() -> int:
     try:
         import yaml
@@ -21,6 +34,8 @@ def main() -> int:
         "agent/manifest.yaml",
         "config/skill-routing.yaml",
         "config/market-universe.yaml",
+        "config/data-source-registry.yaml",
+        "config/indicator-catalog.yaml",
         "config/strategy-config.yaml",
         "config/screening-config.yaml",
         "config/risk-config.yaml",
@@ -28,16 +43,33 @@ def main() -> int:
         "policies/financial-safety.yaml",
         "policies/data-quality.yaml",
         "policies/user-data-isolation.yaml",
+        "tests/skill-routing-cases.yaml",
+        "adapters/chatgpt/agents/openai.yaml",
     ]
     errors: list[str] = []
-    for relative in required:
-        path = ROOT / relative
-        try:
-            value = yaml.safe_load(path.read_text(encoding="utf-8"))
-            if not isinstance(value, dict):
-                errors.append(f"{relative}: YAML root must be a mapping")
-        except (OSError, UnicodeError, yaml.YAMLError) as exc:
-            errors.append(f"{relative}: {exc}")
+    loaded = {relative: load_mapping(relative, yaml, errors) for relative in required}
+
+    routing_cases = loaded.get("tests/skill-routing-cases.yaml", {}).get("cases", [])
+    if not isinstance(routing_cases, list) or not routing_cases:
+        errors.append("tests/skill-routing-cases.yaml: cases must be a non-empty list")
+    else:
+        seen_ids: set[str] = set()
+        for index, case in enumerate(routing_cases):
+            if not isinstance(case, dict):
+                errors.append(f"routing case #{index + 1}: must be a mapping")
+                continue
+            case_id = case.get("id")
+            if not isinstance(case_id, str) or not case_id:
+                errors.append(f"routing case #{index + 1}: missing id")
+            elif case_id in seen_ids:
+                errors.append(f"routing case #{index + 1}: duplicate id {case_id}")
+            seen_ids.add(case_id)
+            if not isinstance(case.get("input"), str) or not case["input"].strip():
+                errors.append(f"routing case {case_id}: missing input")
+            if case.get("level") not in {"S0", "S1", "S2", "S3"}:
+                errors.append(f"routing case {case_id}: invalid task level")
+            if "auxiliary" not in case or not isinstance(case["auxiliary"], list):
+                errors.append(f"routing case {case_id}: auxiliary must be a list")
 
     plugin_path = ROOT / "adapters/chatgpt/plugin.json"
     try:
@@ -51,6 +83,8 @@ def main() -> int:
             errors.append("adapters/chatgpt/plugin.json: invalid displayName")
         if len(interface.get("shortDescription", "")) > 30:
             errors.append("adapters/chatgpt/plugin.json: shortDescription exceeds 30 characters")
+        if not isinstance(interface.get("capabilities"), list):
+            errors.append("adapters/chatgpt/plugin.json: capabilities must be an array")
         if set(plugin) & {"skills", "mcpServers", "apps", "interface"}:
             errors.append("adapters/chatgpt/plugin.json: unsupported portable top-level field")
     except (OSError, UnicodeError, json.JSONDecodeError) as exc:
@@ -62,7 +96,7 @@ def main() -> int:
             print(f"- {error}")
         return 1
 
-    print(f"Finance configuration validation passed: {len(required)} YAML files and plugin manifest")
+    print(f"Finance configuration validation passed: {len(required)} YAML files, {len(routing_cases)} routing cases and plugin manifest")
     return 0
 
 

@@ -1,0 +1,28 @@
+version: 1
+description: 指标元数据注册表；正式指标需通过评审后配置。
+indicators: {}
+schema:
+  required_fields:
+    - id
+    - name
+    - category
+    - formula
+    - input_fields
+    - period
+    - unit
+    - direction
+    - supported_markets
+    - missing_value_policy
+    - version
+  direction_values: [higher_is_better, lower_is_better, target_range, boolean]
+  missing_value_policy_values: [reject, flag_and_exclude, configured_imputation]
+governance:
+  require_owner: true
+  require_formula_review: true
+  require_market_validation: true
+  require_effective_from: true
+  prevent_future_data: true
+notes:
+  - indicators 为空表示尚未登记可用于正式选股的指标。
+  - 不允许仅凭指标名称推断公式、单位或适用周期。
+  - 归一化和权重由 screening-config 独立配置并版本管理。
